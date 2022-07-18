@@ -17,4 +17,22 @@
 
 
 </body>
+    <script>
+        let form = document.getElementById('join-form')
+
+        form.addEventListener('submit', (e) => {
+            // Stops submitting from doing anything
+            // Want to implement our own stuff to happen
+            e.preventDefault()
+
+            // Cool tip: You should probably handle for white spaces
+            // as they could potentially cause some issues
+            let inviteCode = e.target.invite_link.value
+
+            console.log(inviteCode)
+
+            window.location = `index.html?room=${inviteCode}`
+        })
+    </script>
+
 </html>

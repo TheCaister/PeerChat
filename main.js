@@ -9,6 +9,19 @@ let uid = String(Math.floor(Math.random() * 10000))
 let client;
 let channel;
 
+// Trying to extract room ID from the URL
+let queryString = window.location.search
+let urlParams = new URLSearchParams(queryString)
+let roomId = urlParams.get('room')
+
+console.log("roomId")
+
+// If room can't be found through Id, send back to lobby.
+if(!roomId){
+    console.log("Damn")
+    window.location = 'lobby.html'
+}
+
 let localStream;
 let remoteStream;
 let peerConnection;
@@ -29,7 +42,8 @@ let init = async () => {
     await client.login({ uid, token })
 
     // index.html?room=324223
-    channel = client.createChannel('main')
+    // Now, channel is created with dynamic room ID
+    channel = client.createChannel(roomId)
     await channel.join()
 
     // Listen for any members that have joined and call the function
